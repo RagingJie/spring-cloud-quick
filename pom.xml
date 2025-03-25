@@ -14,6 +14,9 @@
     <version>1.0-SNAPSHOT</version>
     <name>spring-cloud-quick</name>
     <description>spring-cloud-quick</description>
+    <modules>
+        <module>services</module>
+    </modules>
     <packaging>pom</packaging>
 
     <!-- 配置maven版本 -->

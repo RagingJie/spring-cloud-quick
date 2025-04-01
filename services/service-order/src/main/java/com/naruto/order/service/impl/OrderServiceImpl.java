@@ -60,4 +60,11 @@ public class OrderServiceImpl implements OrderService {
         String url = "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort() + "/service-product/getProduct/" + productId;
         return restTemplate.getForObject(url, Product.class);
     }
+
+    // 进阶2：使用注解的方式实现负载均衡远程调用，第三版，在配置类RestTemplate中添加@LoadBalanced注解
+    private Product getProductByIdThree(Long productId) {
+        // 拼接请求地址
+        String url = "http://service-product/service-product/getProduct/" + productId;
+        return restTemplate.getForObject(url, Product.class);
+    }
 }

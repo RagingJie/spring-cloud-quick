@@ -5,11 +5,14 @@ import com.naruto.order.properties.OrderProperties;
 import com.naruto.order.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@RefreshScope  // 配置刷新
 @RestController
 @Slf4j
 @RequestMapping(path = "/service-order")
@@ -21,6 +24,15 @@ public class OrderController {
     @Autowired
     private OrderProperties orderProperties;
 
+    @Value("${order.timeout}")
+    private String timeout;
+
+    @Value("${order.auto-confirm}")
+    private String autoConfirm;
+
+    @Value("${order.api-url}")
+    private String apiUrl;
+
     @GetMapping(path = "/create")
     public Order create(@RequestParam("userId") Long userId,
                         @RequestParam("productId") Long productId) {
@@ -28,8 +40,13 @@ public class OrderController {
     }
 
 
-    @GetMapping(path = "/getConfig")
-    public String getConfig() {
+    @GetMapping(path = "/getConfigOne")
+    public String getConfigOne() {
+        return "timeout:" + this.timeout + ";  autoConfirm:" + this.autoConfirm + ";  apiUrl：<a>" + this.apiUrl + "</a>";
+    }
+
+    @GetMapping(path = "/getConfigTwo")
+    public String getConfigTwo() {
         return "timeout:" + orderProperties.getTimeout() + ";  autoConfirm:" + orderProperties.getAutoConfirm() + ";  apiUrl:<a>" + orderProperties.getApiUrl() + "</a>";
     }
 }

@@ -15,5 +15,7 @@ public class OrderProperties {
     private String autoConfirm;
     // api接口地址
     private String apiUrl;
+    // 版本
+    private String version;
 
 }

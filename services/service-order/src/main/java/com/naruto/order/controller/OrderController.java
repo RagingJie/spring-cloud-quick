@@ -1,6 +1,7 @@
 package com.naruto.order.controller;
 
 import com.naruto.order.bean.Order;
+import com.naruto.order.properties.CommonProperties;
 import com.naruto.order.properties.OrderProperties;
 import com.naruto.order.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,9 @@ public class OrderController {
 
     @Autowired
     private OrderProperties orderProperties;
+
+    @Autowired
+    private CommonProperties commonProperties;
 
     @Value("${order.timeout}")
     private String timeout;
@@ -47,6 +51,14 @@ public class OrderController {
 
     @GetMapping(path = "/getConfigTwo")
     public String getConfigTwo() {
-        return "timeout:" + orderProperties.getTimeout() + ";  autoConfirm:" + orderProperties.getAutoConfirm() + ";  apiUrl:<a>" + orderProperties.getApiUrl() + "</a>";
+        return "timeout:" + orderProperties.getTimeout() + "\n"
+                + "autoConfirm:" + orderProperties.getAutoConfirm() + "\n"
+                + "apiUrl:" + orderProperties.getApiUrl() + "\n"
+                + "version:" + orderProperties.getVersion();
+    }
+
+    @GetMapping(path = "/getConfigThree")
+    public String getConfigThree() {
+        return "common-name:" + commonProperties.getName();
     }
 }
